@@ -1,0 +1,29 @@
+version: 2.1
+
+jobs:
+  count:
+    parameters:
+      cls:
+        type: string
+    resource_class: << parameters.cls >>
+    docker:
+      - image: cimg/node:16
+    steps:
+      - run:
+          name: print CPU count (not VCPUs)
+          command: |
+            # using Node, because I am trying to investigate based on this Jest comment
+            # See https://github.com/facebook/jest/issues/11430#issuecomment-1040568066
+            node -e "console.log(os.cpus().length);"
+
+workflows:
+  cpus:
+    jobs:
+      - count:
+          matrix:
+            parameters:
+              cls:
+                - small
+                - medium
+                - medium+
+                - large
