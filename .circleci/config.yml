@@ -15,15 +15,18 @@ jobs:
             # using Node, because I am trying to investigate based on this Jest comment
             # See https://github.com/facebook/jest/issues/11430#issuecomment-1040568066
             node -e "console.log(os.cpus().length);"
+  echo:
+    invalid
 
 workflows:
   cpus:
     jobs:
-      - count:
-          matrix:
-            parameters:
-              cls:
-                - small
-                - medium
-                - medium+
-                - large
+      - echo
+#       - count:
+#           matrix:
+#             parameters:
+#               cls:
+#                 - small
+#                 - medium
+#                 - medium+
+#                 - large
